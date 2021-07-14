@@ -1,0 +1,186 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background 	= #D8D8D8
+foreground 	= #0e1112
+fmodules 	= #ffffff
+
+primary 	= #0094d2
+secondary 	= #67d0ff
+alert 		= #FF1414
+
+shade1 		= #001f2c
+shade2 		= #004564
+shade3 		= #016d9b
+shade4 		= #0095d3
+shade5 		= #21bcff
+shade6 		= #66d1ff
+
+[bar/bt]
+width 		= 100%
+height 		= 29
+fixed-center 	= true
+;radius 	= 6.0
+bottom 		= true
+
+background 	= ${colors.background}
+foreground 	= ${colors.foreground}
+
+line-size 	= 3
+line-color 	= #f00
+
+border-size 	= 0
+border-color 	= ${colors.background}
+
+padding-left 	= 0
+padding-right 	= 0
+
+module-margin-left 	= 0
+module-margin-right 	= 0
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = wuncon siji:pixelsize=10;1
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
+font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
+font-5 = "Font Awesome 5 Brands:pixelsize=10;1"
+
+modules-right = date 
+modules-center = i3
+modules-left = filesystem battery memory cpu pulseaudio
+
+tray-position = right
+tray-padding = 0
+tray-background = ${colors.shade1}
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:70:...%
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /home
+
+label-mounted = "  %percentage_used%% "
+label-mounted-foreground = ${colors.fmodules}
+label-mounted-background = ${colors.shade1}
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.fmodules}
+
+[module/i3]
+type = internal/i3
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = #B2B2B2
+label-focused-underline= ${colors.shade2}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-underline = ${colors.alert}
+label-urgent-padding = 2
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "  "
+format-prefix-foreground = ${colors.fmodules}
+format-prefix-background = ${colors.shade4}
+label = "%percentage:2%% "
+label-background = ${colors.shade4}
+label-foreground = ${colors.fmodules}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "  "
+format-prefix-background = ${colors.shade3}
+format-prefix-foreground = ${colors.fmodules}
+label = "%percentage_used%% "
+label-background = ${colors.shade3}
+label-foreground = ${colors.fmodules}
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = " %a, %b %d, %Y"
+time = " %I:%M%p"
+
+label = " %date% | %time% "
+label-background = ${colors.shade2}
+label-foreground = ${colors.fmodules}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+label-volume = "  %percentage%% "
+label-volume-foreground = ${colors.fmodules}
+label-volume-background = ${colors.shade5}
+
+label-muted = "   Muted "
+label-muted-foreground = #666
+label-muted-underline = ${colors.alert}
+label-muted-background = #B2B2B2
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 100
+interval = 5
+
+label-full = "  Full "
+label-full-foreground = ${colors.fmodules}                                                                                                  
+label-full-background = ${colors.shade2}
+label-full-underline = #32FF09
+
+label-charging = "  %percentage%% "
+label-charging-background = ${colors.shade2}
+label-charging-foreground = ${colors.fmodules}
+label-charging-underline = #F19600
+
+label-discharging = "  %percentage%% " 
+label-discharging-background = ${colors.shade2} 
+label-discharging-foreground = ${colors.fmodules} 
