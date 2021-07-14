@@ -1,172 +1,186 @@
-set $mod Mod4
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
 
-font pango:Lexend 10
+[colors]
+background 	= #D8D8D8
+foreground 	= #0e1112
+fmodules 	= #ffffff
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+primary 	= #0094d2
+secondary 	= #67d0ff
+alert 		= #FF1414
 
-# Start a terminal
-bindsym $mod+Return exec kitty
+shade1 		= #001f2c
+shade2 		= #004564
+shade3 		= #016d9b
+shade4 		= #0095d3
+shade5 		= #21bcff
+shade6 		= #66d1ff
 
-# Kill focused window
-bindsym $mod+q kill
+[bar/bt]
+width 		= 100%
+height 		= 29
+fixed-center 	= true
+;radius 	= 6.0
+bottom 		= true
 
-#bindsym $mod+d exec rofi -modi drun run -show drun -font "Roboto Regular 10" -show-icons
-bindsym $mod+d exec --no-startup-id /home/bloodtears/.config/rofi/launchers/misc/launcher.sh
+background 	= ${colors.background}
+foreground 	= ${colors.foreground}
 
-# Alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+line-size 	= 3
+line-color 	= #f00
 
-# Switch places
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+border-size 	= 0
+border-color 	= ${colors.background}
 
-# Split mode
-bindsym $mod+h split h
-bindsym $mod+v split v
+padding-left 	= 0
+padding-right 	= 0
 
-# Change container layout
-bindsym $mod+f fullscreen toggle
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+module-margin-left 	= 0
+module-margin-right 	= 0
 
-# Toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-# Change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = wuncon siji:pixelsize=10;1
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
+font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
+font-5 = "Font Awesome 5 Brands:pixelsize=10;1"
 
-# Polybar
-exec_always --no-startup-id /home/bloodtears/.config/polybar/launch.sh
+modules-right = date 
+modules-center = i3
+modules-left = filesystem battery memory cpu pulseaudio
 
-# Setting workspaces
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
- # Switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
-# Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+tray-position = right
+tray-padding = 0
+tray-background = ${colors.shade1}
 
-# Title Alignement
-title_align center
+cursor-click = pointer
+cursor-scroll = ns-resize
 
-# Reload the configuration file
-bindsym $mod+Shift+c reload
-# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# Exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec /home/bloodtears/.config/rofi/powermenu/powermenu.sh
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:70:...%
 
+[module/filesystem]
+type = internal/fs
+interval = 25
 
-# Resize window (you can also use the mouse for that)
-mode "resize" {
+mount-0 = /home
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 5 px or 5 ppt
-        bindsym Down resize grow height 5 px or 5 ppt
-        bindsym Up resize shrink height 5 px or 5 ppt
-        bindsym Right resize grow width 5 px or 5 ppt
+label-mounted = "  %percentage_used%% "
+label-mounted-foreground = ${colors.fmodules}
+label-mounted-background = ${colors.shade1}
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.fmodules}
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default" 
-        bindsym $mod+r mode "default"
-}
+[module/i3]
+type = internal/i3
+index-sort = true
+wrapping-scroll = false
 
-bindsym $mod+r mode "resize"
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
 
-# Keyboard Layout
-exec_always setxkbmap fr
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = #B2B2B2
+label-focused-underline= ${colors.shade2}
+label-focused-padding = 2
 
-# Display Wallpaper
-exec_always feh --bg-fill -z /home/bloodtears/Media/Pictures/Wallpapers/
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
 
-# Keybinding i3lock
-bindsym $mod+x exec i3lock-fancy
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
 
-#Startup Programs ----
-exec spotify
-exec brave
-exec discord
-exec nm-applet
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-underline = ${colors.alert}
+label-urgent-padding = 2
 
-#Assigning programs to workspaces ----
-for_window [class="Brave"] move to workspace		$ws1
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "  "
+format-prefix-foreground = ${colors.fmodules}
+format-prefix-background = ${colors.shade4}
+label = "%percentage:2%% "
+label-background = ${colors.shade4}
+label-foreground = ${colors.fmodules}
 
-for_window [class="kitty"] move to workspace 		$ws2
-#------------------------ Telegram -------------------------
-for_window [class="Telegram"] move to workspace 	$ws3
-for_window [class="Telegram"] floating enable
-for_window [class="Telegram"] resize set 380 480
-#-----------------------------------------------------------
-for_window [class="discord"] move to workspace		$ws3
-for_window [class="mailspring"] move to workspace	$ws3
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "  "
+format-prefix-background = ${colors.shade3}
+format-prefix-foreground = ${colors.fmodules}
+label = "%percentage_used%% "
+label-background = ${colors.shade3}
+label-foreground = ${colors.fmodules}
 
-for_window [class="vlc"] move to workspace		$ws4
-for_window [class="Spotify"] move to workspace		$ws4
+[module/date]
+type = internal/date
+interval = 1
 
-for_window [class="tm"] move to workspace		$ws6
-for_window [class="pm"] move to workspace		$ws6
-for_window [class="pr"] move to workspace		$ws6
-for_window [class="Anki"] move to workspace		$ws6
-for_window [class="MindMaster"] move to workspace	$ws6
+date = " %a, %b %d, %Y"
+time = " %I:%M%p"
 
-# Compositor
-exec_always picom -f 
+label = " %date% | %time% "
+label-background = ${colors.shade2}
+label-foreground = ${colors.fmodules}
 
-# Screenshot tool
-bindsym Print exec flameshot gui
-exec_always flameshot
+[module/pulseaudio]
+type = internal/pulseaudio
 
-# Media Controls
-bindsym XF86AudioPlay exec 		playerctl play-pause
-bindsym XF86AudioPause exec 		playerctl play-pause
-bindsym XF86AudioNext exec 		playerctl next
-bindsym XF86AudioPrev exec 		playerctl previous
-# Brightness Controls
-bindsym XF86MonBrightnessUp exec 	--no-startup-id brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec 	--no-startup-id brightnessctl set 10%-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec 	--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec 	--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec 		--no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec 		--no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+format-volume = <label-volume>
+label-volume = "  %percentage%% "
+label-volume-foreground = ${colors.fmodules}
+label-volume-background = ${colors.shade5}
 
-for_window [class="^.*"] border pixel 0
-gaps inner 5
-gaps outer 0
+label-muted = "   Muted "
+label-muted-foreground = #666
+label-muted-underline = ${colors.alert}
+label-muted-background = #B2B2B2
 
-# Dunst
-exec --no-startup-id dunst
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 100
+interval = 5
+
+label-full = "  Full "
+label-full-foreground = ${colors.fmodules}                                                                                                  
+label-full-background = ${colors.shade2}
+label-full-underline = #32FF09
+
+label-charging = "  %percentage%% "
+label-charging-background = ${colors.shade2}
+label-charging-foreground = ${colors.fmodules}
+label-charging-underline = #F19600
+
+label-discharging = "  %percentage%% " 
+label-discharging-background = ${colors.shade2} 
+label-discharging-foreground = ${colors.fmodules} 
